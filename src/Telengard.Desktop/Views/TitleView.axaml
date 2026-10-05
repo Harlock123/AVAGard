@@ -5,8 +5,8 @@
              x:DataType="vm:TitleViewModel">
     <Grid ColumnDefinitions="*,*" Margin="40">
         <StackPanel VerticalAlignment="Center" Spacing="6" MaxWidth="420">
-            <TextBlock Text="TELENGARD" Classes="h1" FontSize="96" HorizontalAlignment="Center" />
-            <TextBlock Text="An unofficial recreation of the 1982 dungeon adventure" HorizontalAlignment="Center" Foreground="{StaticResource InkDim}" />
+            <TextBlock Text="AVAGARD" Classes="h1" FontSize="96" HorizontalAlignment="Center" />
+            <TextBlock Text="An unofficial recreation of Telengard, the 1982 dungeon adventure" HorizontalAlignment="Center" Foreground="{StaticResource InkDim}" />
             <TextBlock Text="Many adventurers have gone down into the dungeon and never returned..." Classes="retro" FontSize="22"
                        TextWrapping="Wrap" TextAlignment="Center" Margin="0,16,0,16" Foreground="{StaticResource Ink}" />
             <Button Classes="menu" Command="{Binding NewClassicCommand}"

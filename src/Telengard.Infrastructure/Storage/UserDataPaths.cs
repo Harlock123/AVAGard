@@ -7,7 +7,7 @@ namespace Telengard.Infrastructure.Storage;
 /// </summary>
 public sealed class UserDataPaths(string dataRoot, string configRoot)
 {
-    public const string AppFolderName = "AVATelengard";
+    public const string AppFolderName = "AVAGard";
 
     public string DataRoot { get; } = dataRoot;
     public string ConfigRoot { get; } = configRoot;

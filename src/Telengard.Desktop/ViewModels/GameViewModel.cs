@@ -83,7 +83,7 @@ public sealed partial class GameViewModel : ViewModelBase, IDisposable
 
     /// <summary>Newly written, optional first-game tips (Modern only).</summary>
     public string TutorialText =>
-        "Welcome to Telengard. There is no quest: explore, survive, and grow strong.\n\n" +
+        "Welcome to AVAGard. There is no quest: explore, survive, and grow strong.\n\n" +
         "• Move with W A X D (or the arrow keys). S stays for a turn.\n" +
         "• Every decision has a time limit (shown by the bar). If you wait, the game acts for you.\n" +
         "• Gold only becomes experience at an inn: climb the stairway you start beside.\n" +

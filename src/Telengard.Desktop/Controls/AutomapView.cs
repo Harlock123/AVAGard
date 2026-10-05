@@ -28,7 +28,7 @@ public sealed class AutomapView : Control
     public bool HighContrast { get => GetValue(HighContrastProperty); set => SetValue(HighContrastProperty, value); }
     public int Radius { get => GetValue(RadiusProperty); set => SetValue(RadiusProperty, value); }
 
-    private static readonly Typeface Mono = new(new FontFamily("avares://Telengard/Assets/Fonts#VT323"));
+    private static readonly Typeface Mono = new(new FontFamily("avares://AVAGard/Assets/Fonts#VT323"));
 
     public override void Render(DrawingContext dc)
     {

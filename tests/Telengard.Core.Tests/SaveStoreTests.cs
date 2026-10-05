@@ -79,7 +79,7 @@ public sealed class SaveStoreTests : IDisposable
         node["SchemaVersion"] = 99;
         Assert.Contains("newer version", Assert.Throws<SaveLoadException>(() => SaveStore.Parse(node.ToJsonString())).Message);
 
-        Assert.Contains("not a Telengard save", Assert.Throws<SaveLoadException>(() => SaveStore.Parse("{}")).Message);
+        Assert.Contains("not an AVAGard save", Assert.Throws<SaveLoadException>(() => SaveStore.Parse("{}")).Message);
     }
 
     [Fact]

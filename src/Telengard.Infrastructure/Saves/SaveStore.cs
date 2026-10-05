@@ -75,8 +75,8 @@ public sealed class SaveStore(string directory)
         SaveFile? file;
         try { file = JsonSerializer.Deserialize(json, SaveJsonContext.Default.SaveFile); }
         catch (JsonException e) { throw new SaveLoadException("The save file is damaged (not valid save data).", e); }
-        if (file is null || file.Format != SaveFile.FormatId)
-            throw new SaveLoadException("This is not a Telengard save file.");
+        if (file is null || (file.Format != SaveFile.FormatId && file.Format != SaveFile.LegacyFormatId))
+            throw new SaveLoadException("This is not an AVAGard save file.");
         if (file.SchemaVersion > SaveFile.CurrentSchemaVersion)
             throw new SaveLoadException($"This save was made by a newer version (format {file.SchemaVersion}). Please update the game.");
         if (file.SchemaVersion < 1)

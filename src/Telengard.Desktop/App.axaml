@@ -3,7 +3,7 @@
              x:Class="Telengard.Desktop.App"
              RequestedThemeVariant="Dark">
     <Application.Resources>
-        <FontFamily x:Key="RetroFont">avares://Telengard/Assets/Fonts#VT323</FontFamily>
+        <FontFamily x:Key="RetroFont">avares://AVAGard/Assets/Fonts#VT323</FontFamily>
         <SolidColorBrush x:Key="Ink" Color="#E8E6D9" />
         <SolidColorBrush x:Key="InkDim" Color="#A9A69A" />
         <SolidColorBrush x:Key="Accent" Color="#A5A1FF" />

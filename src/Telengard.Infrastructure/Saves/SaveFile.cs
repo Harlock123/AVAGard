@@ -19,7 +19,9 @@ public enum SaveKind
 /// </summary>
 public sealed class SaveFile
 {
-    public const string FormatId = "avatelengard-save";
+    public const string FormatId = "avagard-save";
+    /// <summary>Format id written before the game was named AVAGard; still read.</summary>
+    public const string LegacyFormatId = "avatelengard-save";
     public const int CurrentSchemaVersion = 1;
     public const string RulesContent = "c64-v4.18";
 
