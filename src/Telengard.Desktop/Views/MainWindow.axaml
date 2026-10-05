@@ -1,22 +1,24 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:Telengard.Desktop.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:v="using:Telengard.Desktop.Views"
         x:Class="Telengard.Desktop.Views.MainWindow"
         x:DataType="vm:MainViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="Telengard.Desktop">
-
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainViewModel />
-    </Design.DataContext>
-
-    <TextBox Text="{Binding Greeting}"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center" />
-
+        Title="Telengard (unofficial recreation)"
+        Width="1180" Height="780" MinWidth="760" MinHeight="560"
+        Background="{StaticResource WindowBrush}">
+    <LayoutTransformControl>
+        <LayoutTransformControl.LayoutTransform>
+            <ScaleTransform ScaleX="{Binding UiScale}" ScaleY="{Binding UiScale}" />
+        </LayoutTransformControl.LayoutTransform>
+        <ContentControl Content="{Binding Current}">
+            <ContentControl.DataTemplates>
+                <DataTemplate DataType="vm:TitleViewModel"><v:TitleView /></DataTemplate>
+                <DataTemplate DataType="vm:CreationViewModel"><v:CreationView /></DataTemplate>
+                <DataTemplate DataType="vm:GameViewModel"><v:GameView /></DataTemplate>
+                <DataTemplate DataType="vm:SettingsViewModel"><v:SettingsView /></DataTemplate>
+                <DataTemplate DataType="vm:HelpViewModel"><v:HelpView /></DataTemplate>
+            </ContentControl.DataTemplates>
+        </ContentControl>
+    </LayoutTransformControl>
 </Window>

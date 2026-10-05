@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Telengard.Desktop.ViewModels"
+             x:Class="Telengard.Desktop.Views.CreationView"
+             x:DataType="vm:CreationViewModel">
+    <Border Classes="panel" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30" Width="560">
+        <StackPanel Spacing="10">
+            <TextBlock Text="{Binding Heading}" Classes="h2" />
+            <TextBlock Text="{Binding Instructions}" TextWrapping="Wrap" Foreground="{StaticResource InkDim}" IsVisible="{Binding !IsNaming}" />
+            <ItemsControl ItemsSource="{Binding Stats}" Margin="0,10">
+                <ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Columns="3" /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="vm:StatLine">
+                        <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,4" ToolTip.Tip="{Binding Tooltip}" Background="Transparent">
+                            <TextBlock Text="{Binding Label}" Classes="retro" FontSize="34" Foreground="{StaticResource Accent}" />
+                            <TextBlock Text="{Binding Value}" Classes="retro" FontSize="34" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding !IsNaming}">
+                <Button Content="Reroll (any key)" Command="{Binding RollCommand}" />
+                <Button Content="Use these (RETURN)" Command="{Binding AcceptCommand}" />
+                <Button Content="Back (Esc)" Command="{Binding BackCommand}" />
+            </StackPanel>
+            <StackPanel Spacing="6" IsVisible="{Binding IsNaming}">
+                <TextBlock Text="Your name, noble sire?" Classes="retro" FontSize="26" />
+                <TextBox x:Name="NameBox" Text="{Binding Name}" MaxLength="30" PlaceholderText="DEMO" FontFamily="{StaticResource RetroFont}" FontSize="24" />
+                <TextBlock Text="{Binding NameHint}" TextWrapping="Wrap" FontSize="12" Foreground="{StaticResource InkDim}" />
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button Content="Descend (RETURN)" Command="{Binding AcceptCommand}" />
+                    <Button Content="Back (Esc)" Command="{Binding BackCommand}" />
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

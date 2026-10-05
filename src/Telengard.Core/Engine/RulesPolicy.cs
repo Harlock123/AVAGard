@@ -2,6 +2,8 @@ namespace Telengard.Core.Engine;
 
 public enum Preset { Classic, Modern }
 
+public enum StartPoint { NewCharacter, StoredCharacter, Suspended }
+
 /// <summary>
 /// Everything that differs between presets. Gameplay rules are shared; only timing, saving and
 /// presentation-facing behaviour live here. See docs/CLASSIC_VS_MODERN.md.

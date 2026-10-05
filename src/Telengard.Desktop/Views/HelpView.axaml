@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Telengard.Desktop.ViewModels"
+             xmlns:core="using:Telengard.Core.Content"
+             x:Class="Telengard.Desktop.Views.HelpView"
+             x:DataType="vm:HelpViewModel">
+    <Border Classes="panel" Margin="30">
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="0,10,0,0">
+                <Button Content="Back (Esc)" Command="{Binding BackCommand}" />
+            </StackPanel>
+            <ScrollViewer>
+                <StackPanel Spacing="8" MaxWidth="900" HorizontalAlignment="Left">
+                    <TextBlock Text="How to play" Classes="h2" />
+                    <TextBlock TextWrapping="Wrap" xml:space="preserve">You are a lone adventurer exploring a vast dungeon: 50 levels, each 200 × 200 rooms, the same in every game. There is no quest and no final goal. Survive, grow stronger, gather treasure and learn spells.
+
+Each turn you may meet a monster (Fight, Cast, or Evade), find treasure, and discover what the room holds: stairways, pits, teleporters, altars, fountains, thrones, small boxes and gray misty cubes. Their effects are risky and unpredictable.
+
+Gold only counts once you carry it out of the dungeon. Climb the stairway near where you started to reach an inn: your gold becomes experience, you heal fully, and you can store your character.
+
+Decisions are timed. If you hesitate, the game acts for you: you stay where you are, or wait while the monster attacks. A character named DEMO (leave the name empty) has no time limit but cannot be stored.
+
+Monsters you evade follow you. Each STAY lets them catch up one step.
+
+Classic follows the reference Commodore 64 rules closely. Modern keeps the same rules but adds an automap, coordinates, a full log, tooltips, adjustable or no time limits, and an automatic resume point.</TextBlock>
+                    <TextBlock Text="Spells" Classes="h2" Margin="0,10,0,0" />
+                    <TextBlock Text="A spell costs as many spell units as its level. Spell level 2 needs character level 3, level 3 needs 6, then 9, 12 and 15. Spells marked * only work in melee." TextWrapping="Wrap" Foreground="{StaticResource InkDim}" />
+                    <ItemsControl ItemsSource="{Binding SpellList}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="core:SpellInfo">
+                                <Grid ColumnDefinitions="60,220,*" Margin="0,2">
+                                    <TextBlock Text="{Binding Level, StringFormat='L{0}'}" Foreground="{StaticResource Accent}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Name}" FontWeight="SemiBold" />
+                                    <TextBlock Grid.Column="2" Text="{Binding Description}" TextWrapping="Wrap" Foreground="{StaticResource InkDim}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Text="About" Classes="h2" Margin="0,10,0,0" />
+                    <TextBlock TextWrapping="Wrap" Foreground="{StaticResource InkDim}" xml:space="preserve">This is an independent, unofficial recreation made from documented behaviour. It is not affiliated with or endorsed by the rights holders of Telengard (Avalon Hill, now part of Hasbro) or the estate of its author, Daniel Lawrence. No original program code, artwork, music or manual text is included. Font: VT323 by Peter Hull (SIL Open Font License 1.1). See THIRD_PARTY_NOTICES.md.</TextBlock>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </Border>
+</UserControl>

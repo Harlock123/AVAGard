@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Telengard.Desktop.ViewModels"
+             x:Class="Telengard.Desktop.Views.TitleView"
+             x:DataType="vm:TitleViewModel">
+    <Grid ColumnDefinitions="*,*" Margin="40">
+        <StackPanel VerticalAlignment="Center" Spacing="6" MaxWidth="420">
+            <TextBlock Text="TELENGARD" Classes="h1" FontSize="96" HorizontalAlignment="Center" />
+            <TextBlock Text="An unofficial recreation of the 1982 dungeon adventure" HorizontalAlignment="Center" Foreground="{StaticResource InkDim}" />
+            <TextBlock Text="Many adventurers have gone down into the dungeon and never returned..." Classes="retro" FontSize="22"
+                       TextWrapping="Wrap" TextAlignment="Center" Margin="0,16,0,16" Foreground="{StaticResource Ink}" />
+            <Button Classes="menu" Command="{Binding NewClassicCommand}"
+                    ToolTip.Tip="The reference rules and timing of the Commodore 64 release (V4.18): about 3.7 seconds per decision, storing a character returns you to this screen.">
+                <StackPanel><TextBlock Text="New game · Classic" HorizontalAlignment="Center" /><TextBlock Text="faithful rules and real-time pressure" FontSize="12" Foreground="{StaticResource InkDim}" HorizontalAlignment="Center" /></StackPanel>
+            </Button>
+            <Button Classes="menu" Command="{Binding NewModernCommand}"
+                    ToolTip.Tip="The same dungeon and rules, with adjustable time limits, automatic resume, an automap, tooltips and a full log.">
+                <StackPanel><TextBlock Text="New game · Modern" HorizontalAlignment="Center" /><TextBlock Text="same rules, gentler interface" FontSize="12" Foreground="{StaticResource InkDim}" HorizontalAlignment="Center" /></StackPanel>
+            </Button>
+            <Button Classes="menu" Content="How to play" Command="{Binding HelpCommand}" />
+            <Button Classes="menu" Content="Settings" Command="{Binding SettingsCommand}" />
+            <Button Classes="menu" Content="Quit" Command="{Binding QuitCommand}" />
+            <TextBlock Text="{Binding Message}" Foreground="{StaticResource BadBrush}" TextWrapping="Wrap" Margin="0,10,0,0" />
+        </StackPanel>
+        <Border Grid.Column="1" Classes="panel" Margin="30,0,0,0" VerticalAlignment="Stretch">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top" Text="Read in a character" Classes="h2" Margin="0,0,0,8" />
+                <TextBlock DockPanel.Dock="Top" Text="No stored characters yet." Foreground="{StaticResource InkDim}" IsVisible="{Binding !HasSaves}" />
+                <ScrollViewer>
+                    <ItemsControl ItemsSource="{Binding Saves}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="vm:SaveEntry">
+                                <Button Command="{Binding OpenCommand}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Margin="0,3" Padding="10,6">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Title}" Classes="retro" FontSize="22" />
+                                        <TextBlock Text="{Binding Detail}" FontSize="12" Foreground="{StaticResource InkDim}" TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>

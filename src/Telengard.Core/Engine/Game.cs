@@ -91,6 +91,10 @@ public sealed partial class Game
     }
 
     public GameState State { get; }
+
+    /// <summary>Convenience overload: true = new character, false = stored character.</summary>
+    public IReadOnlyList<GameEvent> Start(bool newCharacter) =>
+        Start(newCharacter ? StartPoint.NewCharacter : StartPoint.StoredCharacter);
     public RulesPolicy Policy { get; }
     public DungeonMap Map { get; }
     public Character Hero => State.Character;
@@ -105,14 +109,20 @@ public sealed partial class Game
 
     /// <summary>
     /// Begins the session. A brand-new character starts with the encounter roll (line 1630);
-    /// a loaded one starts with a full turn (line 1300).
+    /// a stored character starts with a full turn (line 1300). A Modern suspend snapshot resumes
+    /// at the command prompt it was taken at.
     /// </summary>
-    public IReadOnlyList<GameEvent> Start(bool newCharacter)
+    public IReadOnlyList<GameEvent> Start(StartPoint start)
     {
         if (_flow is not null) throw new InvalidOperationException("Already started.");
         if (State.Z <= 0) State.Z = 1; // line 1285: a character saved at an inn resumes below it
         _l = State.Z;
-        _next = newCharacter ? Label.EncounterRoll : Label.Tick;
+        _next = start switch
+        {
+            StartPoint.NewCharacter => Label.EncounterRoll,
+            StartPoint.StoredCharacter => Label.Tick,
+            _ => Label.Ready,
+        };
         MarkExplored();
         _flow = Run().GetEnumerator();
         return Advance();

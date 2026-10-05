@@ -17,6 +17,11 @@ public sealed class LocalView
     public required IReadOnlyList<WallSegment> Walls { get; init; }
     /// <summary>Neighbouring cells (row, col) revealed as containing a feature (Light only).</summary>
     public required IReadOnlyList<(int Row, int Col)> LitFeatures { get; init; }
+    /// <summary>
+    /// Cells whose interior is in line of sight (the hero's room plus neighbours reached through
+    /// open sides), using the same paths the original uses to reveal features with Light.
+    /// </summary>
+    public required IReadOnlyList<(int Row, int Col)> VisibleRooms { get; init; }
 
     public static LocalView Compute(DungeonMap map, int x, int y, int z, bool light)
     {
@@ -42,21 +47,22 @@ public sealed class LocalView
         if (!Blocks(W(1, 1))) { H(2, 0); V(1, 0); H(1, 0); }
         V(1, 1); H(1, 1); V(1, 2); H(2, 1);
 
-        var lit = new List<(int, int)>();
-        if (light)
-        {
-            bool F(int r, int c) => map.RawFeature(x + c - 1, y + r - 1, z) != 0;
-            bool Clear(int bits) => bits < 2;
-            if (F(0, 0) && ((Clear(N(1, 0)) && Clear(W(1, 1))) || !(Blocks(N(1, 1)) || Blocks(W(0, 1))))) lit.Add((0, 0));
-            if (F(0, 1) && Clear(N(1, 1))) lit.Add((0, 1));
-            if (F(0, 2) && ((Clear(N(1, 1)) && Clear(W(0, 2))) || !(Blocks(N(1, 2)) || Blocks(W(1, 2))))) lit.Add((0, 2));
-            if (F(1, 2) && Clear(W(1, 2))) lit.Add((1, 2));
-            if (F(2, 2) && ((Clear(N(2, 2)) && Clear(W(1, 2))) || !(Blocks(N(2, 1)) || Blocks(W(2, 2))))) lit.Add((2, 2));
-            if (F(2, 1) && Clear(N(2, 1))) lit.Add((2, 1));
-            if (F(2, 0) && ((Clear(N(2, 0)) && Clear(W(1, 1))) || !(Blocks(N(2, 1)) || Blocks(W(2, 1))))) lit.Add((2, 0));
-            if (F(1, 0) && Clear(W(1, 1))) lit.Add((1, 0));
-        }
+        bool Clear(int bits) => bits < 2;
+        var visible = new List<(int, int)> { (1, 1) };
+        if ((Clear(N(1, 0)) && Clear(W(1, 1))) || !(Blocks(N(1, 1)) || Blocks(W(0, 1)))) visible.Add((0, 0));
+        if (Clear(N(1, 1))) visible.Add((0, 1));
+        if ((Clear(N(1, 1)) && Clear(W(0, 2))) || !(Blocks(N(1, 2)) || Blocks(W(1, 2)))) visible.Add((0, 2));
+        if (Clear(W(1, 2))) visible.Add((1, 2));
+        if ((Clear(N(2, 2)) && Clear(W(1, 2))) || !(Blocks(N(2, 1)) || Blocks(W(2, 2)))) visible.Add((2, 2));
+        if (Clear(N(2, 1))) visible.Add((2, 1));
+        if ((Clear(N(2, 0)) && Clear(W(1, 1))) || !(Blocks(N(2, 1)) || Blocks(W(2, 1)))) visible.Add((2, 0));
+        if (Clear(W(1, 1))) visible.Add((1, 0));
 
-        return new LocalView { X = x, Y = y, Z = z, Walls = walls, LitFeatures = lit };
+        // Lines 15300-15440: with Light, features in visible neighbouring rooms are shown.
+        var lit = light
+            ? visible.Where(v => v != (1, 1) && map.RawFeature(x + v.Item2 - 1, y + v.Item1 - 1, z) != 0).ToList()
+            : [];
+
+        return new LocalView { X = x, Y = y, Z = z, Walls = walls, LitFeatures = lit, VisibleRooms = visible };
     }
 }

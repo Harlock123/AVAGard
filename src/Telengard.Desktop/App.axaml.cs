@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Telengard.Desktop.Services;
 using Telengard.Desktop.ViewModels;
 using Telengard.Desktop.Views;
 
@@ -8,21 +9,21 @@ namespace Telengard.Desktop;
 
 public partial class App : Application
 {
-    public override void Initialize()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
+    /// <summary>Tests may set this before the app starts to isolate saves and settings.</summary>
+    public static AppServices? ServicesOverride { get; set; }
+
+    public override void Initialize() => AvaloniaXamlLoader.Load(this);
 
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainViewModel(),
-            };
+            var services = ServicesOverride ?? AppServices.CreateDefault();
+            var main = new MainViewModel(services) { UiScale = services.Settings.UiScale };
+            var window = new MainWindow { DataContext = main };
+            main.ExitRequested += () => window.Close();
+            desktop.MainWindow = window;
         }
-
         base.OnFrameworkInitializationCompleted();
     }
 }

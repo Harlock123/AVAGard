@@ -7,6 +7,10 @@ namespace Telengard.Desktop.Tests;
 
 public class TestAppBuilder
 {
+    // Skia rendering (instead of headless drawing) so frames can be captured for inspection.
     public static AppBuilder BuildAvaloniaApp() =>
-        AppBuilder.Configure<Telengard.Desktop.App>().UseHeadless(new AvaloniaHeadlessPlatformOptions());
+        AppBuilder.Configure<App>()
+            .UseSkia()
+            .WithInterFont()
+            .UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
 }

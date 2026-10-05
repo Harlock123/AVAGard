@@ -1,0 +1,178 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Telengard.Desktop.ViewModels"
+             xmlns:c="using:Telengard.Desktop.Controls"
+             x:Class="Telengard.Desktop.Views.GameView"
+             x:DataType="vm:GameViewModel">
+    <Grid>
+        <Grid ColumnDefinitions="*,320" RowDefinitions="*,Auto" Margin="10">
+            <!-- Dungeon -->
+            <Grid Grid.Column="0" Grid.Row="0" ColumnDefinitions="*,Auto">
+                <Border Classes="panel" Padding="0" ClipToBounds="True">
+                    <c:DungeonView Snapshot="{Binding Snapshot}" HighContrast="{Binding HighContrast}" MinHeight="260" />
+                </Border>
+                <Border Grid.Column="1" Classes="panel" Margin="8,0,0,0" Padding="4" Width="230" VerticalAlignment="Top"
+                        IsVisible="{Binding ShowAutomap}" ToolTip.Tip="Automap (Modern aid): rooms you have visited on this level">
+                    <StackPanel>
+                        <TextBlock Text="Automap" Classes="retro" FontSize="20" Foreground="{StaticResource InkDim}" Margin="4,0,0,2" />
+                        <c:AutomapView Snapshot="{Binding Snapshot}" HighContrast="{Binding HighContrast}" Height="220" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Status panel -->
+            <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Classes="panel" Margin="10,0,0,0">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Spacing="2">
+                        <TextBlock Text="{Binding HeroTitle}" Classes="retro" FontSize="30" Foreground="{StaticResource Gold}" />
+                        <TextBlock Text="{Binding Location}" Foreground="{StaticResource InkDim}" IsVisible="{Binding IsModern}" />
+                        <ItemsControl ItemsSource="{Binding Stats}" Margin="0,6,0,0">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate><UniformGrid Columns="2" /></ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:StatLine">
+                                    <StackPanel Orientation="Horizontal" Spacing="6" ToolTip.Tip="{Binding Tooltip}" Background="Transparent">
+                                        <TextBlock Text="{Binding Label}" Classes="retro" FontSize="22" Width="44" Foreground="{StaticResource Accent}" />
+                                        <TextBlock Text="{Binding Value}" Classes="retro" FontSize="22" Foreground="{StaticResource Ink}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <TextBlock Text="Equipment" Classes="retro" FontSize="22" Foreground="{StaticResource InkDim}" Margin="0,8,0,0" />
+                        <ItemsControl ItemsSource="{Binding Equipment}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:StatLine">
+                                    <Grid ColumnDefinitions="*,Auto" ToolTip.Tip="{Binding Tooltip}" Background="Transparent">
+                                        <TextBlock Text="{Binding Label}" Classes="retro" FontSize="20" />
+                                        <TextBlock Grid.Column="1" Text="{Binding Value}" Classes="retro" FontSize="20" Foreground="{StaticResource Gold}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <TextBlock Text="Active effects" Classes="retro" FontSize="22" Foreground="{StaticResource InkDim}" Margin="0,8,0,0" />
+                        <ItemsControl ItemsSource="{Binding Effects}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:StatLine">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Text="{Binding Label}" Classes="retro" FontSize="20" Foreground="{StaticResource InfoBrush}" />
+                                        <TextBlock Grid.Column="1" Text="{Binding Value}" Classes="retro" FontSize="20" Foreground="{StaticResource InkDim}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <TextBlock Text="{Binding FollowersText}" TextWrapping="Wrap" Foreground="{StaticResource DangerBrush}" Margin="0,6,0,0" />
+                        <TextBlock Text="{Binding ModeLabel}" Foreground="{StaticResource InkDim}" FontSize="12" Margin="0,8,0,0" />
+                        <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,6,0,0">
+                            <Button Classes="action" Content="Pause (Esc)" Command="{Binding TogglePauseCommand}" />
+                            <Button Classes="action" Content="Keys" Command="{Binding ToggleHelpCommand}" />
+                        </StackPanel>
+                    </StackPanel>
+                    <!-- Event log -->
+                    <DockPanel Margin="0,8,0,0">
+                        <TextBlock DockPanel.Dock="Top" Text="Log" Classes="retro" FontSize="22" Foreground="{StaticResource InkDim}" />
+                        <ScrollViewer x:Name="LogScroller">
+                            <ItemsControl ItemsSource="{Binding Log}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:LogLine">
+                                        <TextBlock TextWrapping="Wrap" FontSize="12.5">
+                                            <Run Text="{Binding Marker}" FontFamily="Consolas, Menlo, monospace" />
+                                            <Run Text="{Binding Text}" />
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </DockPanel>
+                </DockPanel>
+            </Border>
+
+            <!-- Messages and prompt -->
+            <Border Grid.Column="0" Grid.Row="1" Classes="panel" Margin="0,10,0,0">
+                <StackPanel Spacing="4">
+                    <ItemsControl ItemsSource="{Binding Messages}" MinHeight="132">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="vm:LogLine">
+                                <TextBlock Classes="retro" FontSize="22" TextWrapping="Wrap">
+                                    <Run Text="{Binding Marker}" Foreground="{StaticResource InkDim}" />
+                                    <Run Text="{Binding Text}" />
+                                </TextBlock>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <TextBlock Text="{Binding PromptText}" Classes="retro" FontSize="26" Foreground="{StaticResource Gold}" VerticalAlignment="Center" />
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10,0" IsVisible="{Binding IsNumberEntry}" Spacing="6">
+                            <Border BorderBrush="{StaticResource Accent}" BorderThickness="1" MinWidth="90" Padding="6,0">
+                                <TextBlock Text="{Binding NumberEntry}" Classes="retro" FontSize="26" />
+                            </Border>
+                            <Button Classes="action" Content="OK (RETURN)" Command="{Binding SubmitNumberCommand}" Margin="0" />
+                        </StackPanel>
+                        <ProgressBar Grid.Column="2" Width="160" Height="10" Minimum="0" Maximum="1" Value="{Binding DeadlineFraction}"
+                                     IsVisible="{Binding DeadlineVisible}" VerticalAlignment="Center"
+                                     ToolTip.Tip="Time left before the default action is taken" />
+                    </Grid>
+                    <ItemsControl ItemsSource="{Binding Actions}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="vm:ActionButton">
+                                <Button Classes="action" Command="{Binding InvokeCommand}" ToolTip.Tip="{Binding Tooltip}">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <TextBlock Text="{Binding Label}" />
+                                        <TextBlock Text="{Binding KeyHint}" Foreground="{StaticResource InkDim}" FontSize="11" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Text="{Binding Banner}" Foreground="{StaticResource BadBrush}" TextWrapping="Wrap" IsVisible="{Binding Banner, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Overlays -->
+        <Border Background="#D0000000" IsVisible="{Binding ShowHelp}">
+            <Border Classes="panel" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="24" MaxWidth="760">
+                <StackPanel Spacing="6">
+                    <TextBlock Text="Commands" Classes="h2" />
+                    <TextBlock TextWrapping="Wrap" Classes="retro" FontSize="22" xml:space="preserve">Move:  W north · X south · A west · D east  (or 8 2 4 6, or arrow keys)
+Stay:  S or 5 (a monster that is following you catches up)
+Cast:  C, then the spell level, then the spell number (= lists them)
+F1 store character   F3 scroll of rescue   F5 healing potion   F7 strength potion
+H help   P replot   Q quit (your character dies)
+
+In combat: F fight · C cast · E evade.   RETURN accepts treasure and offers;
+any other key declines.   Esc pauses (a modern convenience; the original had no pause).</TextBlock>
+                    <Button Classes="action" Content="Close" Command="{Binding ToggleHelpCommand}" HorizontalAlignment="Right" />
+                </StackPanel>
+            </Border>
+        </Border>
+
+        <Border Background="#C0000000" IsVisible="{Binding IsPaused}">
+            <Border Classes="panel" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="28">
+                <StackPanel Spacing="8" Width="300">
+                    <TextBlock Text="Paused" Classes="h2" HorizontalAlignment="Center" />
+                    <TextBlock Text="The turn timer is stopped. (The original game had no pause; this is a disclosed convenience.)"
+                               TextWrapping="Wrap" Foreground="{StaticResource InkDim}" />
+                    <Button Classes="menu" Content="Resume (Esc)" Command="{Binding TogglePauseCommand}" />
+                    <Button Classes="menu" Content="Abandon to title (unsaved progress is lost)" Command="{Binding BackToTitleCommand}" />
+                </StackPanel>
+            </Border>
+        </Border>
+
+        <Border Background="#E0100000" IsVisible="{Binding IsDead}">
+            <Border Classes="panel" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="28" BorderBrush="{StaticResource DangerBrush}">
+                <StackPanel Spacing="10" Width="460">
+                    <TextBlock Text="You died!!" Classes="h1" Foreground="{StaticResource DangerBrush}" HorizontalAlignment="Center" />
+                    <TextBlock Text="{Binding DeathText}" TextWrapping="Wrap" Classes="retro" FontSize="22" />
+                    <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+                        <Button Classes="menu" Content="Yes (Y)" Command="{Binding TryAgainCommand}" Width="140" />
+                        <Button Classes="menu" Content="No (N)" Command="{Binding GiveUpCommand}" Width="140" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>
