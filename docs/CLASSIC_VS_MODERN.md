@@ -21,6 +21,7 @@ disclosed below.
 | Log | Full log in the side panel | Same |
 | Key remapping | Original keys, plus arrows and keypad | Dungeon commands remappable in Settings |
 | Tooltips and spell descriptions | Available (presentation only) | Available |
+| Sound and music | Same in both: new SID-style effects and chiptune by default. Original C64 sounds are not used | Same |
 
 ## Accommodations that touch timing or rules (disclosure)
 

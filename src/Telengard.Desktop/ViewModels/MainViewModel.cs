@@ -25,6 +25,7 @@ public sealed partial class MainViewModel : ViewModelBase
     partial void OnCurrentChanged(ViewModelBase? oldValue, ViewModelBase newValue)
     {
         if (oldValue is IDisposable d) d.Dispose();
+        Services.Sound.TitleScreen = newValue is not GameViewModel;
     }
 
     public void ShowTitle() => Current = new TitleViewModel(Services, this);

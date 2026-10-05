@@ -268,6 +268,7 @@ public sealed partial class Game
             case Monsters.Dragon:
                 if (Rnd() > .3) { bonus = 5; damageMultiplier = 2; break; }
                 Say("The dragon breathes fire!!!", Tone.Danger);
+                Sound(SoundCue.Breath);
                 int burn = Int(Rnd() * 20 * _ml + 1);
                 // Line 3394 as written: a high CON makes it *less* likely that you partially dodge.
                 if (!(Rnd() < .05 * Hero.Con))
@@ -310,6 +311,7 @@ public sealed partial class Game
         {
             Clear();
             Say("It drains a level!!!", Tone.Danger);
+            Sound(SoundCue.Drain);
             Hero.Experience = LInt(Hero.Experience / 2.0);
             if (Hero.Level == 1) Hero.Experience = -1;
             if (!LevelCheck()) { _next = Label.Death; yield break; }
@@ -325,6 +327,7 @@ public sealed partial class Game
         }
         Clear();
         Say("You're paralyzed!!!", Tone.Danger);
+        Sound(SoundCue.Paralyzed);
         BeatClear();
         attackAgain?.Invoke();
     }

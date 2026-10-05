@@ -13,12 +13,16 @@ Telengard.Infrastructure  → Core
 ├── Saves/                    SaveFile envelope (versioned, checksummed JSON), SaveStore (atomic, validated)
 ├── Settings/                 GameSettings, SettingsStore
 └── Storage/                  UserDataPaths, AtomicFile
-Telengard.Desktop (Avalonia 12, CommunityToolkit.Mvvm) → Core, Infrastructure
+Telengard.Audio (Silk.NET OpenAL, NVorbis, NLayer) → Core     ported from AVABand's Angband.Audio
+├── OpenAlAudioEngine / NullAudioEngine   streamed music and ambience, pooled effects, silent fallback
+├── SoundPack, SoundPackCatalog           soundpack.json folders (bundled + user)
+└── SoundDirector                          SoundCue → pack event names; music mood; ambience by depth
+Telengard.Desktop (Avalonia 12, CommunityToolkit.Mvvm) → Core, Infrastructure, Audio
 ├── ViewModels/               Main (screen host), Title, Creation, Game, Settings, Help
 ├── Views/                    XAML views; MainWindow routes keys (tunnel, auto-repeat suppression)
 ├── Controls/                 DungeonView, AutomapView (custom Render; no per-room controls), Glyphs, Palette
 ├── Input/                    KeyMap (original keys + arrows/keypad, remappable), PromptPresenter
-└── Services/                 AppServices, ISoundPlayer (silent for now)
+└── Services/                 AppServices (saves, settings, audio engine and director)
 ```
 
 ## The engine

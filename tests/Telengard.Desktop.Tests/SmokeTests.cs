@@ -282,3 +282,33 @@ public sealed class VerticalSliceTests : IDisposable
         w.Close();
     }
 }
+
+public sealed class SettingsScreenTests : IDisposable
+{
+    private readonly string _root = Path.Combine(Path.GetTempPath(), "tg-ui-" + Guid.NewGuid().ToString("N"));
+    public void Dispose() { if (Directory.Exists(_root)) Directory.Delete(_root, true); }
+
+    [AvaloniaFact]
+    public void SettingsShowSoundPacksAndSaveThem()
+    {
+        var services = AppServices.CreateIsolated(_root);
+        var vm = new MainViewModel(services);
+        var w = new MainWindow { DataContext = vm, Width = 1180, Height = 1100 };
+        w.Show();
+        vm.ShowSettings();
+        for (int i = 0; i < 20; i++) Dispatcher.UIThread.RunJobs();
+        var settings = Assert.IsType<SettingsViewModel>(vm.Current);
+        Assert.Contains(settings.EffectsPacks, p => p.Id == "avagard-retro");
+        Assert.Contains(settings.EffectsPacks, p => p.Id == "angband-dubtrain");
+        Assert.Contains(settings.MusicPacks, p => p.Id == "avagard-music");
+        SmokeTests.Capture(w, "09-settings");
+        settings.EffectsPack = settings.EffectsPacks.First(p => p.Id == "angband-dubtrain");
+        settings.MusicVolume = 0.25;
+        settings.SaveCommand.Execute(null);
+        for (int i = 0; i < 20; i++) Dispatcher.UIThread.RunJobs();
+        Assert.Equal("angband-dubtrain", services.Settings.EffectsPack);
+        Assert.Equal("angband-dubtrain", services.Sound.Effects?.Id);
+        Assert.Equal(0.25, services.Settings.MusicVolume);
+        w.Close();
+    }
+}

@@ -12,7 +12,7 @@ public enum PauseKind
     BeatAndClear,
 }
 
-public enum SoundCue { Step, Bump, Encounter, Hit, Miss, Hurt, Kill, Spell, Treasure, Trap, Teleport, Fall, Stairs, Inn, LevelUp, LevelDown, Death, Gong, Shock, Drink, Throne }
+public enum SoundCue { Step, Bump, Encounter, Hit, Miss, Hurt, Kill, Spell, Treasure, Trap, Teleport, Fall, Stairs, Inn, LevelUp, LevelDown, Death, Gong, Shock, Drink, Throne, Breath, Paralyzed, Drain, Confused }
 
 public abstract record GameEvent;
 

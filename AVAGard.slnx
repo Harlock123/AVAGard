@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/Telengard.Audio/Telengard.Audio.csproj" />
     <Project Path="src/Telengard.Core/Telengard.Core.csproj" />
     <Project Path="src/Telengard.Desktop/Telengard.Desktop.csproj" />
     <Project Path="src/Telengard.Infrastructure/Telengard.Infrastructure.csproj" />

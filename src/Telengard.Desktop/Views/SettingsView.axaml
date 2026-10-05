@@ -46,6 +46,47 @@
                     <CheckBox IsChecked="{Binding ReducedMotion}" Content="Reduced motion" />
                     <CheckBox IsChecked="{Binding ShowAutomap}" Content="Show the automap in Modern games" />
 
+                    <TextBlock Text="Sound" FontWeight="Bold" Margin="0,8,0,0" />
+                    <TextBlock Text="{Binding AudioStatus}" FontSize="12" Foreground="{StaticResource InkDim}" TextWrapping="Wrap" />
+                    <StackPanel Orientation="Horizontal" Spacing="16">
+                        <CheckBox IsChecked="{Binding SoundEnabled}" Content="Sound effects" />
+                        <CheckBox IsChecked="{Binding MusicEnabled}" Content="Music" />
+                        <CheckBox IsChecked="{Binding AmbienceEnabled}" Content="Dungeon ambience" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="Master volume" VerticalAlignment="Center" Width="180" />
+                        <Slider Minimum="0" Maximum="1" Value="{Binding MasterVolume}" Width="260" />
+                        <TextBlock Text="{Binding MasterVolume, StringFormat='{}{0:P0}'}" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="Effects volume" VerticalAlignment="Center" Width="180" />
+                        <Slider Minimum="0" Maximum="1" Value="{Binding EffectsVolume}" Width="260" />
+                        <TextBlock Text="{Binding EffectsVolume, StringFormat='{}{0:P0}'}" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="Music volume" VerticalAlignment="Center" Width="180" />
+                        <Slider Minimum="0" Maximum="1" Value="{Binding MusicVolume}" Width="260" />
+                        <TextBlock Text="{Binding MusicVolume, StringFormat='{}{0:P0}'}" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="Ambience volume" VerticalAlignment="Center" Width="180" />
+                        <Slider Minimum="0" Maximum="1" Value="{Binding AmbienceVolume}" Width="260" />
+                        <TextBlock Text="{Binding AmbienceVolume, StringFormat='{}{0:P0}'}" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="Sound effects pack" VerticalAlignment="Center" Width="180" />
+                        <ComboBox ItemsSource="{Binding EffectsPacks}" SelectedItem="{Binding EffectsPack}" MinWidth="420" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="Music pack" VerticalAlignment="Center" Width="180" />
+                        <ComboBox ItemsSource="{Binding MusicPacks}" SelectedItem="{Binding MusicPack}" MinWidth="420" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="Audio buffer" VerticalAlignment="Center" Width="180" />
+                        <ComboBox ItemsSource="{Binding BufferChoices}" SelectedItem="{Binding AudioBuffer}" MinWidth="420" />
+                    </StackPanel>
+                    <TextBlock Text="The audio buffer takes effect the next time the game starts." FontSize="12" Foreground="{StaticResource InkDim}" />
+
                     <TextBlock Text="Dungeon keys (Modern)" FontWeight="Bold" Margin="0,8,0,0" />
                     <ItemsControl ItemsSource="{Binding Bindings}">
                         <ItemsControl.ItemTemplate>

@@ -1,4 +1,4 @@
-# Third-party notices
+# Third-party notices (AVAGard)
 
 ## Shipped with the application
 
@@ -14,11 +14,40 @@
 | CommunityToolkit.Mvvm | 8.4.2 | MIT | MVVM helpers | https://github.com/CommunityToolkit/dotnet |
 | **VT323** font (`src/Telengard.Desktop/Assets/Fonts/VT323-Regular.ttf`) | google/fonts commit 7085eb8 | **SIL Open Font License 1.1**; reserved font name none listed; © 2011 The VT323 Project Authors (Peter Hull) | Retro display font | https://github.com/google/fonts/tree/main/ofl/vt323 (license text: `Assets/Fonts/VT323-OFL.txt`, shipped alongside) |
 | .NET runtime (self-contained builds) | 10.0.x | MIT | Runtime | https://github.com/dotnet/runtime |
+| Silk.NET.OpenAL, Silk.NET.Core | 2.23.0 | MIT | OpenAL bindings | https://github.com/dotnet/Silk.NET |
+| **OpenAL Soft** (native; via Silk.NET.OpenAL.Soft.Native 1.23.1; on Windows x64/x86 the unmodified official 1.23.1 binaries in `src/Telengard.Audio/native/`) | 1.23.1 | **LGPL-2.0-or-later** | Audio mixing and output | https://github.com/kcat/openal-soft/tree/1.23.1 (licence: `src/Telengard.Audio/native/COPYING-openal-soft.txt`) |
+| NVorbis | 0.10.5 | MIT | Ogg Vorbis decoding | https://github.com/NVorbis/NVorbis |
+| NLayer | 1.16.0 | MIT | MP3 decoding | https://github.com/naudio/NLayer |
+| Microsoft.Extensions.DependencyModel / Microsoft.DotNet.PlatformAbstractions (via Silk.NET) | 9.0.9 / 3.1.6 | MIT | Native library loading | https://github.com/dotnet/runtime |
+
+**OpenAL Soft (LGPL)**: it is not compiled into AVAGard. It is a separate shared library
+(`soft_oal.dll` / `libopenal`) loaded at run time, which users may replace with their own build.
+When distributing, ship its licence text (above) and point to its source (above, or offer it on
+request).
 
 Obligations: keep the copyright and license notices of the MIT/BSD components with redistributed
 binaries (the NuGet packages contain them), and ship the OFL text with the VT323 font (it is
 embedded next to it). The OFL allows bundling with software, including commercial software, but the
 font may not be sold on its own.
+
+## Sound and music shipped with the application
+
+| Asset | Licence | Credit |
+|---|---|---|
+| `soundpacks/avagard-retro` (sound effects) | CC0 | Synthesised for AVAGard by `tools/retro_audio.py` |
+| `soundpacks/avagard-music`: "Beneath the Inn", "Graph Paper" | CC0 | Composed and synthesised for AVAGard (`tools/retro_audio.py`) |
+| `soundpacks/avagard-music`: "The Foe Before You" | CC0 | Made for AVABand by the same author |
+| `soundpacks/avagard-music`: 15 OpenGameArt tracks | CC0 | RandomMind, cynicmusic, JaggedStone, yd, HaelDB, TinyWorlds, Spring Spring, Paul Wortmann, Eponasoft, The Oracle, Juhani Junkala (see the pack's `CREDITS.txt`) |
+| `ambience/` (3 dungeon loops) | CC0 | JaggedStone, gmason, bretbernhoft via OpenGameArt (see `ambience/CREDITS.md`) |
+| `soundpacks/angband-dubtrain` (optional effects pack) | **CC BY 4.0, attribution required** | **Sound effects by Dubtrain** (angband@dubtrain.com), from Angband 4.2 `lib/sounds`, https://github.com/angband/angband/tree/master/lib/sounds. Licence text: the pack's `LICENSE.txt` |
+
+## Code reused from AVABand
+
+`src/Telengard.Audio` (OpenAL engine, decoders, loudness levelling, sound-pack loader and VM
+detection), the Windows OpenAL swap in `Directory.Build.targets`, and the ambience and music files
+above come from the author's own **AVABand**. AVABand as a whole is GPL-2.0 because it derives from
+Angband. Its audio code is the author's original work, not Angband-derived, so the author can
+reuse it here under whatever licence AVAGard adopts.
 
 ## Build and test only (not shipped)
 

@@ -1,0 +1,86 @@
+{
+  "name": "AVAGard retro (SID-style)",
+  "author": "Made for AVAGard (tools/retro_audio.py)",
+  "license": "CC0 1.0 Public Domain Dedication",
+  "source": "tools/retro_audio.py in this repository",
+  "sounds": {
+    "BREATH": [
+      "breath.wav"
+    ],
+    "BUMP": [
+      "bump.wav"
+    ],
+    "CONFUSED": [
+      "confused.wav"
+    ],
+    "DEATH": [
+      "death.wav"
+    ],
+    "DRAIN": [
+      "drain.wav"
+    ],
+    "DRINK": [
+      "drink.wav"
+    ],
+    "ENCOUNTER": [
+      "encounter.wav"
+    ],
+    "FALL": [
+      "fall.wav"
+    ],
+    "GONG": [
+      "gong.wav"
+    ],
+    "HIT": [
+      "hit.wav"
+    ],
+    "HURT": [
+      "hurt.wav"
+    ],
+    "INN": [
+      "inn.wav"
+    ],
+    "KILL": [
+      "kill.wav"
+    ],
+    "LEVEL": [
+      "level.wav"
+    ],
+    "LEVEL_DOWN": [
+      "level_down.wav"
+    ],
+    "MISS": [
+      "miss.wav"
+    ],
+    "PARALYZED": [
+      "paralyzed.wav"
+    ],
+    "SHOCK": [
+      "shock.wav"
+    ],
+    "SPELL": [
+      "spell.wav"
+    ],
+    "STAIRS": [
+      "stairs.wav"
+    ],
+    "STEP": [
+      "step.wav"
+    ],
+    "TELEPORT": [
+      "teleport.wav"
+    ],
+    "THRONE": [
+      "throne.wav"
+    ],
+    "TRAP": [
+      "trap.wav"
+    ],
+    "TREASURE": [
+      "treasure.wav"
+    ]
+  },
+  "volumes": {
+    "STEP": 0.35
+  }
+}

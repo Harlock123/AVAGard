@@ -185,8 +185,14 @@ public sealed partial class GameViewModel : ViewModelBase, IDisposable
                         await Beat(p.Kind);
                         if (p.Kind == PauseKind.BeatAndClear) Messages.Clear();
                         break;
-                    case SoundEvent s when _services.Settings.SoundEnabled:
-                        _services.Sound.Play(s.Cue, _services.Settings.SoundVolume);
+                    case SoundEvent s:
+                        _services.Sound.Play(s.Cue);
+                        break;
+                    case MonsterAppearedEvent appeared:
+                        _services.Sound.SetMonster(appeared.Type);
+                        break;
+                    case MonsterGoneEvent:
+                        _services.Sound.SetMonster(0);
                         break;
                     case SaveRequestedEvent save:
                         _pendingSave = save.Snapshot;
@@ -440,6 +446,8 @@ public sealed partial class GameViewModel : ViewModelBase, IDisposable
             h.TimerActive(Effect.Invisibility),
             at ? InnNames.For(s.X, s.Y) : null,
             IsModern ? s.Explored : null);
+
+        _services.Sound.SetLocation(at ? 0 : s.Z);
 
         HeroTitle = $"{h.Name}   LVL {h.Level}";
         Location = at ? "At the inn" : IsModern ? $"Level {s.Z} · ({s.X}, {s.Y}) · turn {s.TurnCount}" : "";

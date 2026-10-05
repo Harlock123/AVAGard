@@ -1,0 +1,3 @@
+AVAGard retro sound effects: synthesised for AVAGard by tools/retro_audio.py (no samples, nothing
+taken from the original game). Released under CC0 1.0 (public domain dedication):
+https://creativecommons.org/publicdomain/zero/1.0/

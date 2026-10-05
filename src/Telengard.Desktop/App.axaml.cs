@@ -18,7 +18,8 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            var services = ServicesOverride ?? AppServices.CreateDefault();
+            var services = ServicesOverride ?? AppServices.CreateDefault(desktop.Args ?? []);
+            desktop.Exit += (_, _) => services.Dispose();
             var main = new MainViewModel(services) { UiScale = services.Settings.UiScale };
             var window = new MainWindow { DataContext = main };
             main.ExitRequested += () => window.Close();

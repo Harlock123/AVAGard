@@ -19,7 +19,17 @@ public sealed class GameSettings
     public bool HighContrast { get; set; }
     public bool ReducedMotion { get; set; }
     public bool SoundEnabled { get; set; } = true;
-    public double SoundVolume { get; set; } = 0.6;
+    public bool MusicEnabled { get; set; } = true;
+    public bool AmbienceEnabled { get; set; } = true;
+    public double MasterVolume { get; set; } = 0.8;
+    public double EffectsVolume { get; set; } = 0.8;
+    public double MusicVolume { get; set; } = 0.5;
+    public double AmbienceVolume { get; set; } = 0.4;
+    /// <summary>Sound pack folder names (see src/Telengard.Desktop/soundpacks).</summary>
+    public string EffectsPack { get; set; } = "avagard-retro";
+    public string MusicPack { get; set; } = "avagard-music";
+    /// <summary>OpenAL mixing period: auto, small, medium or large (larger rides out VM audio jitter).</summary>
+    public string AudioBuffer { get; set; } = "auto";
     public bool ShowAutomap { get; set; } = true;
     public bool ShowTutorial { get; set; } = true;
     /// <summary>Optional remapping: command name → key names (Avalonia Key enum names).</summary>

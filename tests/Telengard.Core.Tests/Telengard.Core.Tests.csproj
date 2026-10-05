@@ -12,6 +12,7 @@
     <Using Include="Xunit" />
     <ProjectReference Include="..\..\src\Telengard.Core\Telengard.Core.csproj" />
     <ProjectReference Include="..\..\src\Telengard.Infrastructure\Telengard.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Telengard.Audio\Telengard.Audio.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Golden\**" CopyToOutputDirectory="PreserveNewest" />

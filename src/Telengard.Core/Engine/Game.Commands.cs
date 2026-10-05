@@ -25,6 +25,7 @@ public sealed partial class Game
             if (Hero.TimerActive(Effect.Drunk) && c is Command.North or Command.South or Command.West or Command.East or Command.Stay)
             {
                 Say("You're confused ->", Tone.Bad);
+                Sound(SoundCue.Confused);
                 c = Fnr(5) switch { 1 => Command.North, 2 => Command.South, 3 => Command.West, 4 => Command.East, _ => Command.Stay };
             }
 
