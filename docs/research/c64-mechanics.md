@@ -284,7 +284,7 @@ while RND > 0.8   (20 % chance to chain)                                   (6435
 Ground truth produced by running the original lines 10010-10040 on the genuine C64 BASIC ROM in a
 6502 emulator. At the time of writing: the bit-level model matched the ROM on all 615 rooms of the start
 area (level 1, y 0-14, x 0-40) and on level 50 up to the (90,40) edge case. Full-level ROM runs for
-z = 1, 2, 10, 25, 50 were still in progress; see docs/research/dungeon-generation.md for status.
+z = 1, 2, 10, 25, 50 have since completed: 204,020 rooms with 0 mismatches. See dungeon-generation.md.
 The C# port (`RoomWordGenerator`) is tested against the ROM start-area output and against the model's
 output for every room of all 51 levels (0-50).
 

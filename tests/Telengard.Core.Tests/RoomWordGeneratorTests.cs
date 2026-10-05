@@ -43,11 +43,16 @@ public class RoomWordGeneratorTests
     }
 
     [Theory]
-    [InlineData(1)]
-    [InlineData(50)]
-    public void MatchesBitLevelModelForWholeLevel(int z)
+    [InlineData("rom", 1)]
+    [InlineData("rom", 2)]
+    [InlineData("rom", 10)]
+    [InlineData("rom", 25)]
+    [InlineData("rom", 50)]
+    [InlineData("model", 1)]
+    [InlineData("model", 50)]
+    public void MatchesGoldenDataForWholeLevel(string source, int z)
     {
-        using var gz = new GZipStream(File.OpenRead(Golden($"model-z{z:00}.bin.gz")), CompressionMode.Decompress);
+        using var gz = new GZipStream(File.OpenRead(Golden($"{source}-z{z:00}.bin.gz")), CompressionMode.Decompress);
         using var ms = new MemoryStream();
         gz.CopyTo(ms);
         var data = ms.ToArray();
