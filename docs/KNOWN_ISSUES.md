@@ -1,0 +1,49 @@
+# Known issues, gaps and unverified historical behaviour
+
+## Platform and validation
+
+- **Windows has not been run.** All validation so far is on Linux arm64 (Arch, XWayland). win-x64 and
+  osx-arm64 builds publish (cross-compiled) but have never been launched. The Windows-first
+  validation the brief asks for is still outstanding.
+- No macOS `.app` bundle, notarisation or code signing. No installers. No application icon (the
+  template's Avalonia logo was removed).
+- Screen-reader support has not been evaluated. Avalonia exposes automation peers (AT-SPI on Linux,
+  UIA on Windows), but the custom-drawn dungeon view has no textual automation equivalent beyond the
+  message log and status panel.
+
+## Presentation
+
+- **No sound.** Avalonia has no audio API. `ISoundPlayer` exists and the engine emits sound cues, but
+  the player is silent. Candidate: SoundFlow (MIT, miniaudio backend) with procedurally synthesised
+  effects, so there are no asset licensing questions.
+- The graphics are new vector drawings, not C64 sprites or characters. Monsters are shown as lettered
+  badges, not unique pictures as on the C64.
+- High-contrast mode recolours the dungeon views only. The side panels keep their normal theme colours.
+- Interface scales other than 100% have not been checked visually.
+- "Replot" (P) has no visible effect, because the screen is always current. It exists for key fidelity.
+
+## Fidelity gaps (deliberate or unresolved)
+
+- **Time per prompt:** 3.7 s is inferred from emulating the original's 400-poll keyboard loop.
+  Real-hardware timing has not been measured. Rooms with animated features (cube, throne, box) had
+  slightly longer loops in the original; this is not modelled.
+- **Random sequences:** a modern generator replaces C64 `RND`. Distributions match; sequences do not.
+- **Keyboard type-ahead** (the C64's 10-key buffer) is not emulated.
+- **Inn names** use newly written word lists, so they differ from the original (for example, the
+  starting inn is not "Worthy Meade Inn").
+- **Message wording** is newly written. Its meaning follows the original messages; the text is not
+  verbatim.
+- Two manual/code conflicts follow the **code** in both presets: the Ring of Protection has no effect,
+  and the shield does not reduce dragon fire. Both are documented in tooltips and FIDELITY.md.
+- The manual's "SV" death rule is optional and off by default (V4.18 does not enforce it).
+- Pressing keys while messages play hurries the messages. It does not queue commands.
+
+## Engine notes
+
+- Modern resume points are written at command prompts only. Quitting mid-encounter resumes at the
+  start of that turn's prompt (documented as a Modern convenience).
+- If storing fails (for example, disk full), the game says so and returns to the prompt. In Classic
+  the session continues instead of returning to the title.
+- Random play is extremely lethal at level 1: about 5 turns on average across 2,000 seeds. This
+  matches the original's difficulty, and Classic is not rebalanced. A "sensible player" simulation
+  for checking Modern balance has not been written yet.

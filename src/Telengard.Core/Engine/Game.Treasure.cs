@@ -116,7 +116,7 @@ public sealed partial class Game
             int plus = Int(Math.Pow(Rnd(), .5) * (_l + 1) + 1);
             Say(Items.HasPlus(slot) ? $"You see a {Items.Name(slot)} +{plus}." : $"You see a {Items.Name(slot)}.", Tone.Info);
             Sound(SoundCue.Treasure);
-            yield return Ask(PromptKind.TakeItem, Command.Confirm, Command.Other);
+            yield return Ask(PromptKind.TakeItem, Command.Confirm, Command.Other) with { Detail = $"{slot}:{plus}" };
             if (ReturnPressed)
             {
                 if (slot == Items.Sword && _trapped)

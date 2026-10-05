@@ -10,6 +10,18 @@ public sealed record ActionChoice(string Label, string KeyHint, string Tooltip, 
 /// <summary>Prompt wording and choices for presentation. The text is newly written for this project.</summary>
 public static class PromptPresenter
 {
+    /// <summary>Modern aid: compare a found item with the one carried (items 1-7 replace it).</summary>
+    public static string? ItemComparison(Prompt p, Character hero)
+    {
+        if (p.Kind != PromptKind.TakeItem || p.Detail?.Split(':') is not [var a, var b]) return null;
+        int slot = int.Parse(a), plus = int.Parse(b);
+        if (!Items.HasPlus(slot)) return $"You carry {hero.Items[slot]}.";
+        int have = hero.Items[slot];
+        if (have <= 0) return "You have none.";
+        string verdict = plus > have ? "better" : plus == have ? "the same" : "WORSE";
+        return $"You carry +{have}; taking it replaces yours ({verdict}).";
+    }
+
     public static string Text(Prompt p) => p.Kind switch
     {
         PromptKind.Ready => "->",

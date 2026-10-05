@@ -150,7 +150,20 @@ any other key declines.   Esc pauses (a modern convenience; the original had no 
             </Border>
         </Border>
 
-        <Border Background="#C0000000" IsVisible="{Binding IsPaused}">
+        <Border Background="#D0000000" IsVisible="{Binding ShowTutorial}" ZIndex="2">
+            <Border Classes="panel" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="28" MaxWidth="640">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="First steps" Classes="h2" />
+                    <TextBlock Text="{Binding TutorialText}" TextWrapping="Wrap" FontSize="15" LineHeight="24" />
+                    <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+                        <Button Content="Don't show again" Command="{Binding CloseTutorialCommand}" CommandParameter="{x:True}" />
+                        <Button Content="Start (RETURN)" Command="{Binding CloseTutorialCommand}" CommandParameter="{x:False}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+
+        <Border Background="#C0000000" IsVisible="{Binding ShowPauseMenu}">
             <Border Classes="panel" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="28">
                 <StackPanel Spacing="8" Width="300">
                     <TextBlock Text="Paused" Classes="h2" HorizontalAlignment="Center" />

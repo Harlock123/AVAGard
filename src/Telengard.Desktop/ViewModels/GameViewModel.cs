@@ -72,8 +72,43 @@ public sealed partial class GameViewModel : ViewModelBase, IDisposable
         _keys = new KeyMap(policy.Preset == Preset.Modern ? services.Settings.KeyBindings : null);
         _deadlineTicker = new DispatcherTimer(TimeSpan.FromMilliseconds(50), DispatcherPriority.Background, (_, _) => UpdateDeadlineBar());
         Enqueue(_game.Start(start));
+        if (IsModern && start == StartPoint.NewCharacter && services.Settings.ShowTutorial)
+        {
+            ShowTutorial = true;
+            IsPaused = true;
+        }
         RefreshAll();
         Pump();
+    }
+
+    /// <summary>Newly written, optional first-game tips (Modern only).</summary>
+    public string TutorialText =>
+        "Welcome to Telengard. There is no quest: explore, survive, and grow strong.\n\n" +
+        "• Move with W A X D (or the arrow keys). S stays for a turn.\n" +
+        "• Every decision has a time limit (shown by the bar). If you wait, the game acts for you.\n" +
+        "• Gold only becomes experience at an inn: climb the stairway you start beside.\n" +
+        "• Monsters scale with depth. Stay near level 1 until you reach character level 2.\n" +
+        "• RETURN accepts treasure and offers; any other key declines. Esc pauses.\n" +
+        "• F1 stores your character. Modern also keeps a resume point automatically.";
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ShowPauseMenu))]
+    private bool _showTutorial;
+
+    public bool ShowPauseMenu => IsPaused && !ShowTutorial;
+
+    partial void OnIsPausedChanged(bool value) => OnPropertyChanged(nameof(ShowPauseMenu));
+
+    [RelayCommand]
+    private void CloseTutorial(bool dontShowAgain)
+    {
+        ShowTutorial = false;
+        if (dontShowAgain)
+        {
+            _services.Settings.ShowTutorial = false;
+            _ = _services.SaveSettingsAsync();
+        }
+        if (IsPaused) TogglePause();
     }
 
     public RulesPolicy Policy { get; }
@@ -200,6 +235,7 @@ public sealed partial class GameViewModel : ViewModelBase, IDisposable
 
         if (_skip.IsCancellationRequested) _skip = new CancellationTokenSource();
         PromptText = PromptPresenter.Text(p);
+        if (IsModern && PromptPresenter.ItemComparison(p, _game.Hero) is { } compare) PromptText += "   " + compare;
         IsNumberEntry = KeyMap.IsNumberEntry(p.Kind);
         NumberEntry = "";
         ShowHelp = p.Kind == PromptKind.Help;
@@ -234,7 +270,8 @@ public sealed partial class GameViewModel : ViewModelBase, IDisposable
     {
         var f = _deadline.RemainingFraction;
         if (f is null) { _deadlineTicker.Stop(); return; }
-        DeadlineFraction = f.Value;
+        // Reduced motion: the bar moves in quarter steps instead of animating continuously.
+        DeadlineFraction = _services.Settings.ReducedMotion ? Math.Ceiling(f.Value * 4) / 4 : f.Value;
     }
 
     // ---- input ---------------------------------------------------------------------------
@@ -243,6 +280,11 @@ public sealed partial class GameViewModel : ViewModelBase, IDisposable
     public bool HandleKey(Key key)
     {
         if (IsDead) return HandleDeathKey(key);
+        if (ShowTutorial)
+        {
+            CloseTutorial(false); // any key dismisses the tips (the key itself is not used as a command)
+            return true;
+        }
         if (key is Key.Escape or Key.Pause)
         {
             TogglePause();
