@@ -19,6 +19,15 @@ artwork, music or manual text is included. See [THIRD_PARTY_NOTICES.md](THIRD_PA
 and [docs/ASSET_PROVENANCE.md](docs/ASSET_PROVENANCE.md). The name and branding live in a few
 strings and can be replaced.
 
+## Licence
+
+AVAGard's own code, tools and documentation are under the [MIT License](LICENSE)
+(© 2026 Lonnie Watson). Bundled third-party components and assets keep their own licences:
+OpenAL Soft is LGPL-2.0-or-later, the Dubtrain effects are CC BY 4.0, the music and ambience are CC0,
+and the VT323 font is OFL 1.1. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The MIT licence
+covers this recreation only. It grants no rights in *Telengard* itself, its name, or the original
+game's materials.
+
 ## Requirements
 
 - .NET SDK 10.0.400 or a newer 10.0 feature band. `global.json` pins it with `latestFeature` roll-forward.

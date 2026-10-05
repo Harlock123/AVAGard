@@ -39,7 +39,9 @@ Classic follows the reference Commodore 64 rules closely. Modern keeps the same 
                     <TextBlock Text="About" Classes="h2" Margin="0,10,0,0" />
                     <TextBlock TextWrapping="Wrap" Foreground="{StaticResource InkDim}" xml:space="preserve">AVAGard is an independent, unofficial recreation of Telengard, made from documented behaviour. It is not affiliated with or endorsed by the rights holders of Telengard (Avalon Hill, now part of Hasbro) or the estate of its author, Daniel Lawrence. No original program code, artwork, music or manual text is included. Font: VT323 by Peter Hull (SIL Open Font License 1.1).
 
-Sound and music: retro effects and the AVAGard themes made for this game (CC0); CC0 music and ambience from OpenGameArt.org by RandomMind, cynicmusic, JaggedStone, yd, HaelDB, TinyWorlds, Spring Spring, Paul Wortmann, Eponasoft, The Oracle, Juhani Junkala, gmason and bretbernhoft; optional effects pack: sound effects by Dubtrain, from Angband (CC BY 4.0). Audio uses OpenAL Soft (LGPL), NVorbis and NLayer. See THIRD_PARTY_NOTICES.md.</TextBlock>
+Sound and music: retro effects and the AVAGard themes made for this game (CC0); CC0 music and ambience from OpenGameArt.org by RandomMind, cynicmusic, JaggedStone, yd, HaelDB, TinyWorlds, Spring Spring, Paul Wortmann, Eponasoft, The Oracle, Juhani Junkala, gmason and bretbernhoft; optional effects pack: sound effects by Dubtrain, from Angband (CC BY 4.0). Audio uses OpenAL Soft (LGPL), NVorbis and NLayer. See THIRD_PARTY_NOTICES.md.
+
+AVAGard © 2026 Lonnie Watson, MIT License.</TextBlock>
                 </StackPanel>
             </ScrollViewer>
         </DockPanel>

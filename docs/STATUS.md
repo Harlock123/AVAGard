@@ -100,7 +100,7 @@ dotnet publish src/Telengard.Desktop -c Release -r win-x64 --self-contained true
    *Telengard* name. The rights holder is likely Hasbro (via Avalon Hill) and/or the Lawrence estate.
    Decide whether to seek permission, rename, or keep it private.
 2. ~~Death rule default~~: **decided**. Keep the C64 V4.18 behaviour (stored characters survive death).
-3. **Licence for AVAGard itself.** It reuses your own AVABand audio code (AVABand is GPL-2.0 only because of Angband). Choose AVAGard's licence; MIT or GPL-2.0 would both work for the reused code.
+3. ~~Licence for AVAGard~~: **decided**. MIT (`LICENSE`); third-party parts keep their own licences.
 
 ## Next concrete tasks
 

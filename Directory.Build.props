@@ -7,5 +7,8 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <Product>AVAGard</Product>
+    <Copyright>Copyright (c) 2026 Lonnie Watson</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 </Project>

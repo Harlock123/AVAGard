@@ -1,5 +1,7 @@
 # Third-party notices (AVAGard)
 
+AVAGard itself is MIT-licensed (see `LICENSE`). The components below keep their own licences.
+
 ## Shipped with the application
 
 | Component | Version | License | Use | Source |
@@ -46,8 +48,8 @@ font may not be sold on its own.
 `src/Telengard.Audio` (OpenAL engine, decoders, loudness levelling, sound-pack loader and VM
 detection), the Windows OpenAL swap in `Directory.Build.targets`, and the ambience and music files
 above come from the author's own **AVABand**. AVABand as a whole is GPL-2.0 because it derives from
-Angband. Its audio code is the author's original work, not Angband-derived, so the author can
-reuse it here under whatever licence AVAGard adopts.
+Angband. Its audio code is the author's original work, not Angband-derived, so the author
+relicenses it here under AVAGard's MIT License.
 
 ## Build and test only (not shipped)
 
