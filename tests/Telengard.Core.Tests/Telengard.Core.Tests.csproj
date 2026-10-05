@@ -13,4 +13,7 @@
     <ProjectReference Include="..\..\src\Telengard.Core\Telengard.Core.csproj" />
     <ProjectReference Include="..\..\src\Telengard.Infrastructure\Telengard.Infrastructure.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Golden\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>
