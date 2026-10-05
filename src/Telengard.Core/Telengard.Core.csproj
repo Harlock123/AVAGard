@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- UI-independent rules engine. No package dependencies by design. -->
+  <PropertyGroup>
+    <RootNamespace>Telengard.Core</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Telengard.Core.Tests" />
+  </ItemGroup>
+</Project>

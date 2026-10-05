@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Persistence, settings and per-user storage locations. -->
+  <ItemGroup>
+    <ProjectReference Include="..\Telengard.Core\Telengard.Core.csproj" />
+  </ItemGroup>
+</Project>

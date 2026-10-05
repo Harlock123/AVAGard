@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Telengard.Core/Telengard.Core.csproj" />
+    <Project Path="src/Telengard.Desktop/Telengard.Desktop.csproj" />
+    <Project Path="src/Telengard.Infrastructure/Telengard.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Telengard.Core.Tests/Telengard.Core.Tests.csproj" />
+    <Project Path="tests/Telengard.Desktop.Tests/Telengard.Desktop.Tests.csproj" />
+  </Folder>
+</Solution>
