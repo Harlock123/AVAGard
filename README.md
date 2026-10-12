@@ -19,6 +19,8 @@ artwork, music or manual text is included. See [THIRD_PARTY_NOTICES.md](THIRD_PA
 and [docs/ASSET_PROVENANCE.md](docs/ASSET_PROVENANCE.md). The name and branding live in a few
 strings and can be replaced.
 
+![AVAGard in Modern mode: the dungeon, automap and character panel](docs/screenshots/dungeon.png)
+
 ## Licence
 
 AVAGard's own code, tools and documentation are under the [MIT License](LICENSE)
