@@ -21,6 +21,22 @@ strings and can be replaced.
 
 ![AVAGard in Modern mode: the dungeon, automap and character panel](docs/screenshots/dungeon.png)
 
+## Download
+
+Ready-to-run builds are on the [Releases page](https://github.com/Harlock123/AVAGard/releases/tag/latest):
+**Latest build (main)** is rebuilt on every push to `main`. Each one is a single self-contained
+program, so there's no .NET to install. Download the archive for your platform, extract it and run
+`AVAGard` (`AVAGard.exe` on Windows).
+
+| Platform | Archive |
+|---|---|
+| Windows | `AVAGard-win-x64.zip`, `AVAGard-win-x86.zip`, `AVAGard-win-arm64.zip` |
+| macOS | `AVAGard-osx-arm64.tar.gz` (Apple silicon), `AVAGard-osx-x64.tar.gz` (Intel) |
+| Linux | `AVAGard-linux-x64.tar.gz`, `AVAGard-linux-arm64.tar.gz`, `AVAGard-linux-arm.tar.gz` |
+
+The macOS build isn't signed, so the first launch is blocked: run
+`xattr -d com.apple.quarantine AVAGard` once, or allow it under System Settings → Privacy & Security.
+
 ## Licence
 
 AVAGard's own code, tools and documentation are under the [MIT License](LICENSE)
